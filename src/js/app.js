@@ -1,4 +1,5 @@
 import auth0 from "auth0-js";
+import cookies from "cookies-js";
 // auth0 code
 window.addEventListener("load", function() {
 

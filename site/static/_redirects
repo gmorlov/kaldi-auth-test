@@ -1,5 +1,2 @@
-/contact/*        200!   Role=admin
-/contact/* /values 401    # fallback to the login page for unauthorized users
-
-/admin/*        200!   Role=admin
-/admin/* /values 401    # fallback to the login page for unauthorized users
+/secret /secret/index.html 200! Role=editor
+/secret /secret/access-denied/ 401!
