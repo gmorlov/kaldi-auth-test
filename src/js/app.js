@@ -1,79 +1,68 @@
-import auth0 from "auth0-js";
+import Auth0Lock from "auth0-lock";
 import cookies from "cookies-js";
-// auth0 code
-window.addEventListener("load", function() {
 
-  var webAuth = new auth0.WebAuth({
-    domain: "bdougie.auth0.com",
-    clientID: "Y7kZiP2YXhkIe6AsO84r4GDSW3QCnnye",
-    redirectUri: window.location.href,
-    audience: "https://bdougie.auth0.com/userinfo",
-    responseType: "token id_token",
-    scope: "openid"
+const clientID = "Y7kZiP2YXhkIe6AsO84r4GDSW3QCnnye";
+const domain = "bdougie.auth0.com";
+const logoutBtn = document.getElementById("btn-logout");
+const loginBtn = document.getElementById("btn-login");
+const loginSecret = document.getElementById("btn-secret");
+
+const lock = new Auth0Lock(clientID, domain, {auth: {
+  params: {scope: "openid email user_metadata app_metadata picture"},
+}});
+
+lock.on("authenticated", (authResult) => {
+  console.log("authenticated: %o - %o", authResult, lock);
+  lock.getProfile(authResult.idToken, (err, profile) => {
+    console.log("err: %o", err);
+    console.log("Got idtoken: %o", authResult.idToken);
+    console.log("profile is: %o", profile);
+    cookies.set("nf_jwt", authResult.idToken);
+    displayButtons();
   });
+});
 
-  // buttons and event listeners
-  var logoutBtn = document.getElementById("btn-logout");
-  var loginBtn = document.getElementById("btn-login");
-
-  loginBtn.addEventListener("click", function(e) {
-    e.preventDefault();
-    webAuth.authorize();
-  });
-
-  logoutBtn.addEventListener("click", logout);
-
-  function setSession(authResult) {
-    // Set the time that the access token will expire at
-    var expiresAt = JSON.stringify(
-      authResult.expiresIn * 1000 + new Date().getTime()
-    );
-    localStorage.setItem("access_token", authResult.accessToken);
-    localStorage.setItem("id_token", authResult.idToken);
-    localStorage.setItem("expires_at", expiresAt);
+window.addEventListener("load", function(e) {
+  if (loginBtn) {
+    loginBtn.addEventListener("click", function(e) {
+      e.preventDefault();
+      lock.show();
+    }, false);
   }
 
-  function logout() {
-    // Remove tokens and expiry time from localStorage
-    localStorage.removeItem("access_token");
-    localStorage.removeItem("id_token");
-    localStorage.removeItem("expires_at");
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", logout, false);
+  }
+
+  function logout(e) {
+    e.preventDefault();
+    cookies.expire("nf_jwt");
+
     displayButtons();
   }
 
-  function isAuthenticated() {
-    // Check whether the current time is past the
-    // access token"s expiry time
-    var expiresAt = JSON.parse(localStorage.getItem("expires_at"));
-    return new Date().getTime() < expiresAt;
-  }
+  displayButtons();
+});
 
+function isAuthenticated() {
+  const jwt = cookies.get("nf_jwt");
+  return jwt !== undefined;
+}
 
-  function handleAuthentication() {
-    webAuth.parseHash(function(err, authResult) {
-      if (authResult && authResult.accessToken && authResult.idToken) {
-        window.location.hash = "";
-        setSession(authResult);
-        loginBtn.style.display = "none";
-      } else if (err) {
-        console.log(err);
-        alert(
-          "Error: " + err.error + ". Check the console for further details."
-        );
-      }
-      displayButtons();
-    });
-  }
-
-  function displayButtons() {
-    if (isAuthenticated()) {
+function displayButtons() {
+  if (isAuthenticated()) {
+    if (loginBtn) {
       loginBtn.style.display = "none";
-      logoutBtn.style.display = "inline-block";
-    } else {
-      loginBtn.style.display = "inline-block";
+    }
+    if (loginSecret) {
+      loginSecret.style.display = "inline-block";
+    }
+  } else {
+    if (loginSecret) {
+      loginSecret.style.display = "none";
+    }
+    if (logoutBtn) {
       logoutBtn.style.display = "none";
     }
   }
-
-  handleAuthentication();
-});
+}

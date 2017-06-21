@@ -1,2 +1,2 @@
-/secret /secret/index.html 200! Role=editor
-/secret /secret/access-denied/ 401!
+/secret/* /secret/index.html 200! Role=user
+/secret /secret/access-denied/ 401
