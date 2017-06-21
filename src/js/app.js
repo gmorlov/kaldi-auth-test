@@ -11,6 +11,8 @@ window.addEventListener("load", function() {
     scope: "openid"
   });
 
+  // buttons and event listeners
+  var logoutBtn = document.getElementById("btn-logout");
   var loginBtn = document.getElementById("btn-login");
 
   loginBtn.addEventListener("click", function(e) {
@@ -18,4 +20,59 @@ window.addEventListener("load", function() {
     webAuth.authorize();
   });
 
+  logoutBtn.addEventListener("click", logout);
+
+  function setSession(authResult) {
+    // Set the time that the access token will expire at
+    var expiresAt = JSON.stringify(
+      authResult.expiresIn * 1000 + new Date().getTime()
+    );
+    localStorage.setItem("access_token", authResult.accessToken);
+    localStorage.setItem("id_token", authResult.idToken);
+    localStorage.setItem("expires_at", expiresAt);
+  }
+
+  function logout() {
+    // Remove tokens and expiry time from localStorage
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("id_token");
+    localStorage.removeItem("expires_at");
+    displayButtons();
+  }
+
+  function isAuthenticated() {
+    // Check whether the current time is past the
+    // access token"s expiry time
+    var expiresAt = JSON.parse(localStorage.getItem("expires_at"));
+    return new Date().getTime() < expiresAt;
+  }
+
+
+  function handleAuthentication() {
+    webAuth.parseHash(function(err, authResult) {
+      if (authResult && authResult.accessToken && authResult.idToken) {
+        window.location.hash = "";
+        setSession(authResult);
+        loginBtn.style.display = "none";
+      } else if (err) {
+        console.log(err);
+        alert(
+          "Error: " + err.error + ". Check the console for further details."
+        );
+      }
+      displayButtons();
+    });
+  }
+
+  function displayButtons() {
+    if (isAuthenticated()) {
+      loginBtn.style.display = "none";
+      logoutBtn.style.display = "inline-block";
+    } else {
+      loginBtn.style.display = "inline-block";
+      logoutBtn.style.display = "none";
+    }
+  }
+
+  handleAuthentication();
 });
