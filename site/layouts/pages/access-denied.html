@@ -1,16 +1,18 @@
 {{ partial "head" . }}
 {{ partial "nav" . }}
+{{ partial "jumbotron" (dict "imageUrl" "/img/about/empty-coffee-mug.jpeg" "title" "Accessed Denied") }}
 <div class="center pv4">
 
   <div class="mw7 center">
-    <h3 class="f3 b lh-title mb2">{{ .Title }}</h3>
-    <p>You don't have access to this page</p>
+    <p>Thi page contains sensitive information and you need to log in to see
+    our financial information</p>
     <ul>
       <li id="btn-login"><a href="/secret"><button class="btn w-100 w-auto-ns raise"
                                              href="/">Login</button></a></li>
       <li id="btn-secret"><a href="/secret/#/"><button class="btn w-100 w-auto-ns
-      raise">Click to see the secret</button></a></li>
+      raise">Click to reveal financial information</button></a></li>
     </ul>
+    <br />
   </div>
 
 <div>
