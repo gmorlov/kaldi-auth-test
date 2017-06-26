@@ -1,8 +1,8 @@
 import Auth0Lock from "auth0-lock";
 import cookies from "cookies-js";
 
-const clientID = "Y7kZiP2YXhkIe6AsO84r4GDSW3QCnnye";
-const domain = "bdougie.auth0.com";
+const clientID = `${process.env.AUTH0_CLIENT_ID}`;
+const domain = `${process.env.AUTH0_DOMAIN}`;
 const logoutBtn = document.getElementById("btn-logout");
 const loginBtn = document.getElementById("btn-login");
 const loginSecret = document.getElementById("btn-secret");
