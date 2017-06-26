@@ -4,3 +4,7 @@
 
 [context.deploy-preview]
   command = "npm run build-preview"
+
+[template.environment]
+  AUTH0_DOMAIN = "XXXXX.auth0.com"
+  AUTH0_CLIENT_ID = "Enter your Auth0 client id here"

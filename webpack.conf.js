@@ -21,8 +21,16 @@ export default {
   plugins: [
     new webpack.ProvidePlugin({
       "fetch": "imports?this=>global!exports?global.fetch!whatwg-fetch"
+    }),
+
+    new webpack.DefinePlugin({
+      "process.env": {
+        "AUTH0_DOMAIN": JSON.stringify(process.env.AUTH0_DOMAIN),
+        "AUTH0_CLIENT_ID": JSON.stringify(process.env.AUTH0_CLIENT_ID)
+      }
     })
   ],
+
 
   context: path.join(__dirname, "src"),
   entry: {
