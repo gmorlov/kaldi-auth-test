@@ -26,6 +26,43 @@ Add Auth0 Domain and Client ID in the Netlify Deploy Wizard, both can be retriev
 
 ![netlify-button-flow](http://i.imgur.com/bhCfXlr.png)
 
+### **Set up user roles**
+Go back to the Users tab of your Auth0 dashboard and click on a user you created previously. Scroll down to the Metadata section.
+
+![auth-app-metadata](http://i.imgur.com/l3wFX3P.png)
+
+You can setup a rule to make sure every created user will be assigned the role `user`.
+```js
+function (user, context, callback) {
+  user.app_metadata = user.app_metadata || {};
+  // You can add a Role based on what you want
+  // In this case I check domain
+  var addRolesToUser = function(user, cb) {
+    if (user.email && user.email.indexOf('@example.com') > -1) {
+      cb(null, ['admin']);
+    } else {
+      cb(null, ['user']);
+    }
+  };
+
+  addRolesToUser(user, function(err, roles) {
+    if (err) {
+      callback(err);
+    } else {
+      user.app_metadata.authorization.roles = roles;
+      auth0.users.updateAppMetadata(user.user_id, user.app_metadata)
+        .then(function(){
+          callback(null, user, context);
+        })
+        .catch(function(err){
+          callback(err);
+        });
+    }
+  });
+}
+```
+
+
 **CMS**
 
 Once the authentication is don is done, you can to setup the GitHub integration for Netlify CMS.
