@@ -32,6 +32,8 @@ Go back to the Users tab of your Auth0 dashboard and click on a user you created
 ![auth-app-metadata](http://i.imgur.com/l3wFX3P.png)
 
 You can setup a rule to make sure every created user will be assigned the role `user`.
+![user-rules](http://i.imgur.com/wcCwSe5.png)
+
 ```js
 function (user, context, callback) {
   user.app_metadata = user.app_metadata || {};
