@@ -1,6 +1,6 @@
 # Netlify CMS small-business template
 
-This is a small business template built with [Victor Hugo](https://github.com/netlify/victor-hugo) and [Netlify CMS](https://github.com/netlify/netlify-cms), designed and developed by [Darin Dimitroff](http://www.darindimitroff.com/), [spacefarm.digital](https://www.spacefarm.digital).
+This is a small business template built with [Victor Hugo](https://github.com/netlify/victor-hugo), [Auth0](https://auth0.com), and [Netlify CMS](https://github.com/netlify/netlify-cms), designed and developed by [Darin Dimitroff](http://www.darindimitroff.com/), [spacefarm.digital](https://www.spacefarm.digital).
 
 ![kaldi-auth-example](http://i.imgur.com/O5latIl.png)
 
@@ -8,7 +8,7 @@ This is a small business template built with [Victor Hugo](https://github.com/ne
 
 Use our deploy button to get your own copy of the repository:
 
-![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/bdougie/kaldi-auth-test)
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/bdougie/kaldi-auth-test)
 
 **Set up Auth0**
 Create a free [Auth0](https://auth0.com/) account if you don't have one already. Follow all of the onboarding instructions, including creating a new application in whatever region you like.
@@ -22,7 +22,7 @@ Go to the Client tab and click on the connection you created previously. It shou
 ![auth0-client](http://i.imgur.com/3Xn6tJZ.png)
 
 **Deploy to Netlify**
-Add Auth0 Domain and Client ID in the Netlify Deploy Wizard, both can be retrieved by creating an Auth0 account(outlined below). 
+Add Auth0 Domain and Client ID in the Netlify Deploy Wizard, both can be retrieved from the create Auth0 account. 
 
 ![netlify-button-flow](http://i.imgur.com/bhCfXlr.png)
 
