@@ -2,13 +2,33 @@
 
 This is a small business template built with [Victor Hugo](https://github.com/netlify/victor-hugo) and [Netlify CMS](https://github.com/netlify/netlify-cms), designed and developed by [Darin Dimitroff](http://www.darindimitroff.com/), [spacefarm.digital](https://www.spacefarm.digital).
 
+[kaldi-auth-example](http://i.imgur.com/O5latIl.png)
+
 ## Getting started
 
 Use our deploy button to get your own copy of the repository:
 
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/netlify-templates/kaldi-hugo-cms-template)
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/bdougie/kaldi-auth-test)
 
-Once that is done, you need to setup the GitHub integration for Netlify CMS.
+**Set up Auth0**
+Create a free [Auth0](https://auth0.com/) account if you don't have one already. Follow all of the onboarding instructions, including creating a new application in whatever region you like.
+
+Go to the "Clients" tab of the Auth0 dashboard and create a new client for a single page application.
+
+[auth0-example](http://i.imgur.com/plyuYno.png)
+
+Go to the Client tab and click on the connection you created previously. It should look like this:
+
+[auth0-client](http://i.imgur.com/3Xn6tJZ.png)
+
+**Deploy to Netlify**
+Add Auth0 Domain and Client ID in the Netlify Deploy Wizard, both can be retrieved by creating an Auth0 account(outlined below). 
+
+[netlify-button-flow](http://i.imgur.com/3Xn6tJZ.png)
+
+**CMS**
+
+Once the authentication is don is done, you can to setup the GitHub integration for Netlify CMS.
 
 Go to https://github.com/settings/developers and register a new application.
 
