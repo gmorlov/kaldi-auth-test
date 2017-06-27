@@ -24,7 +24,7 @@ Go to the Client tab and click on the connection you created previously. It shou
 **Deploy to Netlify**
 Add Auth0 Domain and Client ID in the Netlify Deploy Wizard, both can be retrieved by creating an Auth0 account(outlined below). 
 
-![netlify-button-flow](http://i.imgur.com/3Xn6tJZ.png)
+![netlify-button-flow](http://i.imgur.com/bhCfXlr.png)
 
 **CMS**
 
